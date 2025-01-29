@@ -1,0 +1,31 @@
+# Binaries
+main
+*.exe
+*.out
+
+# Dependency directories
+/vendor/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# IDE and editor specific files
+.vscode/
+.idea/
+*.swp
+
+# Build artifacts
+*.o
+*.a
+*.so
+
+# Go specific cache and generated files
+*.test
+/testdata/
+/*.prof
+
+# Docker related files
+*.envrc
