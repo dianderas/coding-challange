@@ -9,6 +9,18 @@ services:
       - '8080:8080'
     environment:
       - JWT_SECRET=${JWT_SECRET}
+      - STATISTICS_SERVICE_URL=${STATISTICS_SERVICE_URL}
+    networks:
+      - app-network
+
+  backend-node:
+    build:
+      context: ./statistics-matrix-service
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
     networks:
       - app-network
 

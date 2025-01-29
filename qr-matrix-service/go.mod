@@ -10,6 +10,7 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.24.0 // indirect
+	github.com/go-resty/resty/v2 v2.16.5 // indirect
 	github.com/gofiber/contrib/jwt v1.0.10 // indirect
 	github.com/gofiber/fiber/v2 v2.52.6 // indirect
 	github.com/gofiber/jwt/v3 v3.3.10 // indirect

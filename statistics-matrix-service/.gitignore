@@ -1,0 +1,44 @@
+# 🔹 Evitar dependencias innecesarias
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# 🔹 Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# 🔹 Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# 🔹 Configuración de entorno y variables secretas
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 🔹 Directorios de compilación
+dist/
+build/
+.cache/
+.tmp/
+
+# 🔹 Archivos de testing
+coverage/
+.nyc_output/
+
+# 🔹 Configuración de editores
+.vscode/
+.idea/
+*.swp
+
+# 🔹 Otros archivos innecesarios
+*.bak
+*.old

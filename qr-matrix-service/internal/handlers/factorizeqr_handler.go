@@ -27,16 +27,8 @@ func ProcessMatrix(c *fiber.Ctx) error {
 
 	result, err := services.FactorizeQr(request)
 	if err != nil {
-		switch err {
-		case services.ErrBadRequest:
-			return utils.JSONError(c, fiber.StatusBadRequest, err.Error())
-
-		case services.ErrInternalError:
-			return utils.JSONError(c, fiber.StatusInternalServerError, "Internal Server Error")
-
-		default:
-			return utils.JSONError(c, fiber.StatusInternalServerError, "Unexpected error occurred")
-		}
+		return utils.HandleServiceError(c, err)
 	}
+
 	return utils.JSONSuccess(c, result)
 }

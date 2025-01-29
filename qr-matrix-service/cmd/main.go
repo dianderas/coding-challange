@@ -23,18 +23,22 @@ func main() {
 
 	// rutas protegidas
 	api := app.Group("/api", middleware.AuthMiddleware())
-	api.Post("/process-matrix", handlers.ProcessMatrix)
+	api.Post("/qrmatrix-process", handlers.ProcessMatrix)
+	api.Post("/fullmatrix-process", handlers.FullProcessMatrix)
 
 	log.Fatal(app.Listen(":8080"))
 }
 
 func initializeEnvVars() {
 	secret := os.Getenv("JWT_SECRET")
+	extUrl := os.Getenv("STATISTICS_SERVICE_URL")
 
 	// Verificar si está definida
 	if secret == "" {
 		fmt.Println("❌ JWT_SECRET no está configurado")
+		fmt.Println("❌ STATISTICS_SERVICE_URL no está configurado")
 	} else {
 		fmt.Println("✅ JWT_SECRET está configurado:", secret)
+		fmt.Println("✅ STATISTICS_SERVICE_URL está configurado:", extUrl)
 	}
 }
