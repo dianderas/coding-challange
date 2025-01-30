@@ -85,8 +85,8 @@ Alternativamente puedes usar directamente el api de estadisticas
 📌 1️⃣ Clonar el Repositorio
 
 ```
-git clone https://github.com/TU_USUARIO/TU_REPO.git
-cd TU_REPO
+git clone https://github.com/dianderas/coding-challange.git
+cd coding-challange
 
 ```
 
