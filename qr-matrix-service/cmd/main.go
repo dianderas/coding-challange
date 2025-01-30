@@ -26,8 +26,12 @@ func main() {
 	api.Post("/qrmatrix-process", handlers.ProcessMatrix)
 	api.Post("/fullmatrix-process", handlers.FullProcessMatrix)
 
-	log.Fatal(app.Listen(":8080"))
 	log.Println("🚀 Iniciando backend-go en el puerto 8080...")
+
+	err := app.Listen(":8080")
+	if err != nil {
+		log.Fatal("❌ Error al iniciar el servidor:", err)
+	}
 }
 
 func initializeEnvVars() {
