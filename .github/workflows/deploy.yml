@@ -20,15 +20,18 @@ jobs:
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_REPOSITORY_GO }}
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_REPOSITORY_NODE }}
 
+      - name: 📂 Mostrar contenido del repositorio
+        run: ls -la
+
       - name: 📦 Construir y Subir `backend-go`
         run: |
-          docker build -t backend-go ./backend-go
+          docker build -t backend-go ./qr-matrix-service
           docker tag backend-go:latest ${{ secrets.AWS_ECR_REPOSITORY_GO }}:latest
           docker push ${{ secrets.AWS_ECR_REPOSITORY_GO }}:latest
 
       - name: 📦 Construir y Subir `backend-node`
         run: |
-          docker build -t backend-node ./backend-node
+          docker build -t backend-node ./statistics-matrix-service
           docker tag backend-node:latest ${{ secrets.AWS_ECR_REPOSITORY_NODE }}:latest
           docker push ${{ secrets.AWS_ECR_REPOSITORY_NODE }}:latest
 
