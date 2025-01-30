@@ -1,0 +1,41 @@
+name: Deploy to AWS ECS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Clonar el Repositorio
+        uses: actions/checkout@v3
+
+      - name: 🔑 Iniciar sesión en AWS ECR
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set region ${{ secrets.AWS_REGION }}
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_REPOSITORY_GO }}
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_REPOSITORY_NODE }}
+
+      - name: 📦 Construir y Subir `backend-go`
+        run: |
+          docker build -t backend-go ./backend-go
+          docker tag backend-go:latest ${{ secrets.AWS_ECR_REPOSITORY_GO }}:latest
+          docker push ${{ secrets.AWS_ECR_REPOSITORY_GO }}:latest
+
+      - name: 📦 Construir y Subir `backend-node`
+        run: |
+          docker build -t backend-node ./backend-node
+          docker tag backend-node:latest ${{ secrets.AWS_ECR_REPOSITORY_NODE }}:latest
+          docker push ${{ secrets.AWS_ECR_REPOSITORY_NODE }}:latest
+
+      - name: 🚀 Actualizar `backend-go` en ECS
+        run: |
+          aws ecs update-service --cluster ${{ secrets.ECS_CLUSTER }} --service ${{ secrets.ECS_SERVICE_GO }} --force-new-deployment
+
+      - name: 🚀 Actualizar `backend-node` en ECS
+        run: |
+          aws ecs update-service --cluster ${{ secrets.ECS_CLUSTER }} --service ${{ secrets.ECS_SERVICE_NODE }} --force-new-deployment
