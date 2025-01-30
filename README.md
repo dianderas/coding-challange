@@ -3,6 +3,44 @@
 Este proyecto es un sistema de **factorización QR** y cálculo de estadísticas de matrices.  
 Utiliza **Go (Fiber)** como backend principal y **Node.js (Express)** para procesar cálculos adicionales.
 
+## Login
+
+Para poder usar la API antes debes pasar por el servicio authenticate
+
+📍 **Base URL:** `http://localhost:8080`
+
+| Método | Endpoint      | Descripción                                           |
+| ------ | ------------- | ----------------------------------------------------- |
+| `POST` | `/auth/login` | Autenticacion de usuario para recibir token de acceso |
+
+📌 **Ejemplo de Request (`POST /auth/login`):**
+
+```json
+{
+  "user": "admin",
+  "password": "admin"
+}
+```
+
+📌 Ejemplo de Respuesta (200 OK):
+
+```json
+{
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNzM4NDQ0MzExLCJuYW1lIjoiYWRtaW4ifQ.ou4rdZwfw3NciLcOaMFgSpMwnPLqpwJokPOH6xHfDEI"
+  },
+  "success": true
+}
+```
+
+Después de obtener el token, debes incluirlo en el header `Authorization` para llamar a otros endpoints:
+
+```
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+## Full Matrix process
+
 📍 **Base URL:** `http://localhost:8080`
 
 | Método | Endpoint                  | Descripción                                         |
@@ -48,7 +86,7 @@ Utiliza **Go (Fiber)** como backend principal y **Node.js (Express)** para proce
 
 ### 2️⃣ Backend Node - API de Procesamiento de Matrices
 
-Alternativamente puedes usar directamente el api de estadisticas
+Alternativamente puedes usar directamente el api de estadisticas. Tambien requiere token de authentication.
 📍 **Base URL:** `http://localhost:3000`
 
 | Método | Endpoint                         | Descripción                        |
